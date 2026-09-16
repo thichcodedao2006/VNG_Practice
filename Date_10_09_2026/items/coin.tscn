@@ -1,0 +1,52 @@
+[gd_scene format=3 uid="uid://coxp7fvvrgbk"]
+
+[ext_resource type="Script" uid="uid://defrkrr8xf2te" path="res://items/coin.gd" id="1_gnov0"]
+[ext_resource type="Texture2D" uid="uid://d20sbxo5mqjmr" path="res://assets/items/coin/01.png" id="1_omk8p"]
+[ext_resource type="Texture2D" uid="uid://dt8ukgqlm4yx6" path="res://assets/items/coin/02.png" id="2_gnov0"]
+[ext_resource type="PackedScene" uid="uid://b18d8k60ukshp" path="res://effects/coin_effect.tscn" id="2_wg8a5"]
+[ext_resource type="Texture2D" uid="uid://csoyxqfkwlg0y" path="res://assets/items/coin/03.png" id="3_w13cl"]
+[ext_resource type="Texture2D" uid="uid://tbv30al5crco" path="res://assets/items/coin/04.png" id="4_wg8a5"]
+[ext_resource type="AudioStream" uid="uid://w5jqjknju6hu" path="res://assets/sounds/coin.mp3" id="6_w13cl"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_ql73s"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_omk8p")
+}, {
+"duration": 1.0,
+"texture": ExtResource("2_gnov0")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_w13cl")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_wg8a5")
+}],
+"loop": 1,
+"name": &"idle",
+"speed": 10.0
+}]
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_ql73s"]
+radius = 0.34692955
+
+[node name="Coin" type="Area3D" unique_id=1230109619]
+script = ExtResource("1_gnov0")
+coin_effect = ExtResource("2_wg8a5")
+
+[node name="AnimatedSprite3D" type="AnimatedSprite3D" parent="." unique_id=1460111839]
+pixel_size = 0.0625
+billboard = 1
+texture_filter = 0
+sprite_frames = SubResource("SpriteFrames_ql73s")
+animation = &"idle"
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=1626610350]
+shape = SubResource("SphereShape3D_ql73s")
+
+[node name="Coin" type="AudioStreamPlayer" parent="." unique_id=1742102635]
+stream = ExtResource("6_w13cl")
+bus = &"SFX"
+
+[connection signal="body_entered" from="." to="." method="on_body_entered"]

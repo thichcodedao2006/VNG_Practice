@@ -1,0 +1,34 @@
+[gd_scene format=3 uid="uid://b18d8k60ukshp"]
+
+[ext_resource type="Texture2D" uid="uid://ca3uk72ltyi3i" path="res://assets/items/coin/effect/01.png" id="1_f2iey"]
+[ext_resource type="Script" uid="uid://c654doktrg54y" path="res://effects/smoke.gd" id="1_ghwua"]
+[ext_resource type="Texture2D" uid="uid://7815uhsg0yyi" path="res://assets/items/coin/effect/02.png" id="2_ghwua"]
+[ext_resource type="Texture2D" uid="uid://dua5jlj37y4u4" path="res://assets/items/coin/effect/03.png" id="3_bqq4l"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_ql73s"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_f2iey")
+}, {
+"duration": 1.0,
+"texture": ExtResource("2_ghwua")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_bqq4l")
+}],
+"loop": 0,
+"name": &"default",
+"speed": 5.0
+}]
+
+[node name="CoinEffect" type="Node3D" unique_id=2079499660]
+script = ExtResource("1_ghwua")
+
+[node name="AnimatedSprite3D" type="AnimatedSprite3D" parent="." unique_id=1437668941]
+pixel_size = 0.0625
+billboard = 1
+texture_filter = 0
+sprite_frames = SubResource("SpriteFrames_ql73s")
+
+[connection signal="animation_finished" from="AnimatedSprite3D" to="." method="_on_animated_sprite_3d_animation_finished"]
