@@ -64,10 +64,8 @@ func get_input(delta: float):
 		direction_x -= 1.0
 		$AnimatedSprite3D.flip_h = true
 		
-	# Nếu có bấm phím -> Tăng tốc mượt mà tới hướng đó
 	if direction_x != 0:
 		velocity.x = move_toward(velocity.x, direction_x * run_speed, FRICTION * delta)
-	# Nếu không bấm phím (hoặc vừa tiếp đất mà không giữ phím) -> Trượt giảm tốc từ từ về 0
 	else:
 		velocity.x = move_toward(velocity.x, 0, FRICTION * delta)
 	
