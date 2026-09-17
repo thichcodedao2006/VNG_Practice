@@ -2,6 +2,7 @@ extends CharacterBody3D
 
 const JUMP_VELOCITY = 4.5
 const FRICTION = 15.0
+const COMB_TIMER = 0.3
 
 @export var gravity = 80.0
 @export var run_speed = 5.0  
@@ -12,9 +13,10 @@ const FRICTION = 15.0
 
 enum {IDLE, WALK, JUMP}
 var state = IDLE
-var canDoubleJump = true
+var canDoubleJump = false
 var finishFirstJump = false
-var count = 0
+
+var timer = 0.0
 
 func _ready() -> void:
 	change_state(IDLE)
@@ -33,11 +35,16 @@ func _physics_process(delta: float) -> void:
 	# Add the gravity.
 	if not is_on_floor():
 		velocity += get_gravity() * delta
+	else:
+		if finishFirstJump:
+			finishFirstJump = false
+			canDoubleJump = true
+			timer = COMB_TIMER
 	
-	if is_on_floor():
-		canDoubleJump = true
-	#if Input.is_action_just_pressed("ui_accept") and is_on_floor():
-		#velocity.y = JUMP_VELOCITY 
+	if timer > 0:
+		timer -= delta
+	else:
+		canDoubleJump = false
 
 	get_input(delta)
 	move_and_slide()
@@ -65,15 +72,17 @@ func get_input(delta: float):
 		velocity.x = move_toward(velocity.x, 0, FRICTION * delta)
 	
 	if jump and is_on_floor():
-		if count == 0:
-			velocity.y = jump_speed
-		else:
+		if canDoubleJump:
 			velocity.y = double_jump_speed
+			canDoubleJump = false
+			finishFirstJump = false
+		else:
+			velocity.y = jump_speed
+			finishFirstJump = true
+		
 		var clone_smoke = smoke_effect.instantiate()
 		clone_smoke.position = position
 		get_parent().add_child(clone_smoke)
-		count += 1
-		count %= 2
 		
 	
 	
