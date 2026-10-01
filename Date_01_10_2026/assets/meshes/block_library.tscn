@@ -1,0 +1,43 @@
+[gd_scene format=3 uid="uid://b0wnlslcm2ku0"]
+
+[ext_resource type="Texture2D" uid="uid://b2jw7fc2ynn6k" path="res://assets/meshes/textures/dirt_block.png" id="1_a12ja"]
+[ext_resource type="Texture2D" uid="uid://d21lhhfuf7d52" path="res://assets/meshes/textures/grass_block.png" id="1_timvb"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_v0s4m"]
+specular_mode = 2
+albedo_texture = ExtResource("1_timvb")
+texture_filter = 0
+
+[sub_resource type="BoxMesh" id="BoxMesh_ql73s"]
+material = SubResource("StandardMaterial3D_v0s4m")
+size = Vector3(2, 2, 2)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_oeq8l"]
+size = Vector3(2, 2, 2)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ho6nb"]
+specular_mode = 2
+albedo_texture = ExtResource("1_a12ja")
+texture_filter = 0
+
+[sub_resource type="BoxMesh" id="BoxMesh_timvb"]
+material = SubResource("StandardMaterial3D_ho6nb")
+size = Vector3(2, 2, 2)
+
+[node name="BlockLibrary" type="Node3D" unique_id=2135981286]
+
+[node name="GrassBlock" type="MeshInstance3D" parent="." unique_id=1093690493]
+mesh = SubResource("BoxMesh_ql73s")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="GrassBlock" unique_id=658500214]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="GrassBlock/StaticBody3D" unique_id=478565507]
+shape = SubResource("BoxShape3D_oeq8l")
+
+[node name="DirtBlock" type="MeshInstance3D" parent="." unique_id=1632306794]
+mesh = SubResource("BoxMesh_timvb")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="DirtBlock" unique_id=61639167]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="DirtBlock/StaticBody3D" unique_id=1994549999]
+shape = SubResource("BoxShape3D_oeq8l")
