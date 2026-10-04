@@ -26,3 +26,15 @@ func update_timer(delta: float) -> bool:
 
 func change_state(new_state: FSMState) -> void:
 	fsm.change_state(new_state)
+	
+func can_double_jump()-> bool:
+	if obj.count == 1:
+		return true
+	return false
+	
+func can_wall_cling() -> bool:
+	if obj.is_on_floor() or not obj.is_on_wall():
+		return false
+	var input: Vector2 = Input.get_vector("left", "right", "up", "down")
+	var push := Vector3(input.x, 0.0, input.y)
+	return push.dot(obj.get_wall_normal()) <= 0.5

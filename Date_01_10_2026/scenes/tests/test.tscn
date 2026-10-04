@@ -4,6 +4,7 @@
 [ext_resource type="PackedScene" uid="uid://dcf57mvultqd8" path="res://scenes/objects/palm_tree.tscn" id="1_syyn5"]
 [ext_resource type="PackedScene" uid="uid://b2r6ihyqi3scx" path="res://assets/models/map/tree.glb" id="2_7wxeb"]
 [ext_resource type="ArrayMesh" uid="uid://x3iqjjxr43w6" path="res://assets/models/map/tree.tres" id="3_weoh1"]
+[ext_resource type="PackedScene" uid="uid://b4lo0kcb1anae" path="res://scenes/camera/camera_rig.tscn" id="5_8ivcm"]
 
 [sub_resource type="BoxMesh" id="BoxMesh_syyn5"]
 size = Vector3(24, 1, 24)
@@ -55,3 +56,6 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 4, 4)
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="." unique_id=944590681]
 transform = Transform3D(0.81915206, 0.46984634, -0.32898995, 0, 0.57357645, 0.81915206, 0.57357645, -0.6710101, 0.46984634, 0, 0, 0)
 shadow_enabled = true
+
+[node name="CameraRig" parent="." unique_id=613861027 node_paths=PackedStringArray("target") instance=ExtResource("5_8ivcm")]
+target = NodePath("../Player")

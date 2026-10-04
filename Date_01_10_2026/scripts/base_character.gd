@@ -21,10 +21,16 @@ const OPPOSITE_DIRECTION: Dictionary = {
 @export var movement_speed: float = 6.0
 @export var gravity: float = 24.0
 @export var direction: String = "down"
+@export var sprint_multiplier: float = 1.6
+@export var sprint_anim_scale: float = 1.2
 
 var jump_speed: float = 12.0
+var double_jump_speed: float = 15.0
 var fsm: FSM = null
 var current_animation = null
+var count: int = 0
+var coyote_time: float = 0.2
+var is_sprinting: bool = false
 
 @onready var sprite: Sprite3D = $Sprite3D
 @onready var anim_player: AnimationPlayer = $AnimationPlayer
@@ -46,9 +52,17 @@ func _physics_process(delta: float) -> void:
 
 
 func _update_movement(delta: float) -> void:
+	# O frame dau tien truoc khi goi move_and_slide 
+	# is_on_fllor van la true nen neu de sau thi se bi reset bien count luon
+	# Cach fix la cho ra sau move_and_slide 
 	if not is_on_floor():
 		velocity.y -= gravity * delta
+		if count == 0:
+			coyote_time -= delta
 	move_and_slide()
+	if is_on_floor():
+		count = 0
+		coyote_time = 0.2
 
 # Pick the facing from the input vector: whichever axis is stronger wins
 static func direction_from_input(input: Vector2) -> String:
@@ -80,7 +94,11 @@ func turn_down() -> void:
 	_next_direction = "down"
 
 func jump() -> void:
-	velocity.y = jump_speed
+	if count == 0:
+		velocity.y = jump_speed
+	elif count == 1:
+		velocity.y = double_jump_speed
+	count += 1
 
 func stop_move() -> void:
 	velocity = Vector3.ZERO
@@ -102,6 +120,11 @@ func get_animation_name() -> String:
 		return ""
 	return "%s_%s" % [current_animation, direction]
 
+func restart_animation() -> void:
+	if anim_player != null and current_animation != null:
+		anim_player.stop()
+		anim_player.play(get_animation_name())
+
 func _check_changed_animation() -> void:
 	var need_play: bool = false
 	if _next_animation != current_animation:
@@ -118,6 +141,14 @@ func _check_changed_direction() -> void:
 	if _next_direction != direction:
 		direction = _next_direction
 		_on_changed_direction()
+		
+func set_sprinting(value: bool) -> void:
+	is_sprinting = value
+	if anim_player != null:
+		anim_player.speed_scale = sprint_anim_scale if value else 1.0
+
+func get_move_speed() -> float:
+	return movement_speed * (sprint_multiplier if is_sprinting else 1.0)
 
 func _on_changed_direction() -> void:
 	pass

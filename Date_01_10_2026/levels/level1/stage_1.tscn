@@ -5,6 +5,134 @@
 [ext_resource type="MeshLibrary" uid="uid://bq7djra5o7euk" path="res://assets/meshes/object_library.meshlib" id="3_vfkyk"]
 [ext_resource type="PackedScene" uid="uid://bdxjduova28d8" path="res://scenes/player/player.tscn" id="4_r2ab4"]
 [ext_resource type="PackedScene" uid="uid://dcf57mvultqd8" path="res://scenes/objects/palm_tree.tscn" id="5_k1jjr"]
+[ext_resource type="PackedScene" uid="uid://b4lo0kcb1anae" path="res://scenes/camera/camera_rig.tscn" id="6_rptxx"]
+[ext_resource type="PackedScene" path="res://scenes/objects/sea_water.tscn" id="6_vfkyk"]
+
+[sub_resource type="Animation" id="Animation_rptxx"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(-0.95993114, -0.61086524, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:light_energy")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.35]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath(".:light_color")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_r2ab4"]
+resource_name = "Sun"
+length = 60.0
+loop_mode = 1
+step = 1.0
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 15, 30, 37, 53, 60),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
+"update": 0,
+"values": [Vector3(0, -0.61086524, 0), Vector3(-1.5707964, -0.61086524, 0), Vector3(-3.1415927, -0.61086524, 0), Vector3(-4.0142574, -0.61086524, 0), Vector3(-5.5850534, -0.61086524, 0), Vector3(-6.2831855, -0.61086524, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:light_energy")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 15, 30, 37, 53, 60),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
+"update": 0,
+"values": [0.8, 1.2, 0.8, 0.05, 0.05, 0.8]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath(".:light_color")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 15, 30, 37, 53, 60),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
+"update": 0,
+"values": [Color(1, 0.7977378, 0.6651851, 1), Color(1, 1, 0.9776916, 1), Color(1, 0.7014107, 0.58383155, 1), Color(0.48452926, 0.5370987, 0.735357, 1), Color(0.48452926, 0.5370987, 0.735357, 1), Color(1, 0.7977378, 0.6651851, 1)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_rptxx"]
+_data = {
+&"RESET": SubResource("Animation_rptxx"),
+&"Sun": SubResource("Animation_r2ab4")
+}
+
+[sub_resource type="Animation" id="Animation_03vgu"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:light_energy")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [1.0]
+}
+
+[sub_resource type="Animation" id="Animation_qkruk"]
+resource_name = "fire"
+length = 0.3
+loop_mode = 1
+step = 0.15
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:light_energy")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.15, 0.3),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [1.0, 1.6, 1.0]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_bdqrd"]
+_data = {
+&"RESET": SubResource("Animation_03vgu"),
+&"fire": SubResource("Animation_qkruk")
+}
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_oeq8l"]
 sky_horizon_color = Color(0.86504203, 0.9309246, 0.96857667, 1)
@@ -36,7 +164,7 @@ metadata/_editor_floor_ = Vector3(0, 0, 0)
 mesh_library = ExtResource("2_k1jjr")
 cell_center_y = false
 data = {
-"cells": PackedInt32Array(65543, 11, 1, 131075, 6, 0, 131086, 10, 0, 65547, 14, 0, 65548, 15, 0, 65549, 14, 0, 65542, 4, 0, 131085, 5, 0)
+"cells": PackedInt32Array(65543, 11, 1, 131075, 6, 0, 131086, 10, 0, 65547, 14, 0, 65548, 15, 0, 65549, 14, 0, 65542, 4, 0, 131085, 5, 0, 65541, 14, 0, 65542, 14, 0, 131078, 14, 0, 65542, 15, 0, 65540, 14, 0, 65541, 15, 0, 131078, 15, 0, 131077, 14, 0)
 }
 metadata/_editor_floor_ = Vector3(0, 2, 0)
 
@@ -48,9 +176,6 @@ data = {
 }
 metadata/_editor_floor_ = Vector3(0, 0, 0)
 
-[node name="Player" parent="World" unique_id=1928380781 instance=ExtResource("4_r2ab4")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 19, 1, 21)
-
 [node name="PalmTree" parent="World" unique_id=24573638 instance=ExtResource("5_k1jjr")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 11, 1, 15)
 
@@ -60,10 +185,32 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 21, 3, 7)
 [node name="PalmTree3" parent="World" unique_id=1465587708 instance=ExtResource("5_k1jjr")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 21, 1, 20)
 
-[node name="DirectionalLight3D" type="DirectionalLight3D" parent="." unique_id=542862913]
-transform = Transform3D(0.81915206, 0.4698463, -0.32898995, 0, 0.57357645, 0.81915206, 0.57357645, -0.6710101, 0.46984634, 0, 11, 0)
+[node name="Player" parent="." unique_id=1928380781 instance=ExtResource("4_r2ab4")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 19, 1, 21)
+
+[node name="CameraRig" parent="." unique_id=613861027 node_paths=PackedStringArray("target") instance=ExtResource("6_rptxx")]
+target = NodePath("../Player")
+
+[node name="Sea" parent="." unique_id=2025316671 instance=ExtResource("6_vfkyk")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 16, -3, 16)
+
+[node name="Sun" type="DirectionalLight3D" parent="." unique_id=542862913]
+transform = Transform3D(0.81915206, 0.46984634, -0.3289899, 0, 0.5735764, 0.819152, 0.57357645, -0.6710101, 0.46984625, 0, 11, 0)
 light_energy = 0.35
 shadow_enabled = true
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Sun" unique_id=1107623476]
+libraries/ = SubResource("AnimationLibrary_rptxx")
+autoplay = &"Sun"
+
+[node name="Fire" type="OmniLight3D" parent="." unique_id=288950048]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 25, 5, 7)
+light_color = Color(1, 0.735357, 0.42358288, 1)
+omni_range = 6.0
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Fire" unique_id=404651213]
+libraries/ = SubResource("AnimationLibrary_bdqrd")
+autoplay = &"fire"
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=1898306662]
 environment = SubResource("Environment_ql73s")

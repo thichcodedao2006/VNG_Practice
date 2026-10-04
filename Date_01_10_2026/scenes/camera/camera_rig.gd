@@ -45,15 +45,22 @@ func _snap_to_target() -> void:
 	_is_initialized = true
 
 func _follow(delta: float) -> void:
-	#If target is unset or has already been freed, do nothing (do not raise an error)
+	if target == null or not is_instance_valid(target):
+		return
+	if not _is_initialized:
+		_snap_to_target()
+		return
 
-	#On the very first run, snap straight onto the target and stop there
+	var target_position := target.global_position
 
-	#Follow x and z with exponential smoothing:
-	#  weight = 1.0 - exp(-horizontal_follow_speed * delta)
-	#  global_position.x = lerpf(global_position.x, target.global_position.x, weight)
+	var horizontal_weight := 1.0 - exp(-horizontal_follow_speed * delta)
+	global_position.x = lerpf(global_position.x, target_position.x, horizontal_weight)
+	global_position.z = lerpf(global_position.z, target_position.z, horizontal_weight)
 
-	#Follow y with vertical_follow_speed, then CLAMP the result inside
-	#  target.global_position.y +/- max_vertical_lag
-
-	pass
+	var vertical_weight := 1.0 - exp(-vertical_follow_speed * delta)
+	var smoothed_y := lerpf(global_position.y, target_position.y, vertical_weight)
+	global_position.y = clampf(
+		smoothed_y,
+		target_position.y - max_vertical_lag,
+		target_position.y + max_vertical_lag
+	)

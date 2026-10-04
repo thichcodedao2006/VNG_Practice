@@ -17,8 +17,10 @@ func control_moving() -> bool:
 	var is_moving: bool = input.length() > 0.1
 	if is_moving:
 		obj.change_direction(BaseCharacter.direction_from_input(input))
-		obj.velocity.x = obj.movement_speed * input.x
-		obj.velocity.z = obj.movement_speed * input.y
+		obj.set_sprinting(Input.is_action_pressed("sprint"))
+		var speed: float = obj.get_move_speed()
+		obj.velocity.x = speed * input.x
+		obj.velocity.z = speed * input.y
 		if obj.is_on_floor():
 			change_state(fsm.states.run)
 		return true

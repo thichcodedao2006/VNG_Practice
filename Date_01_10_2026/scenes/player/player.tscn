@@ -7,6 +7,7 @@
 [ext_resource type="Script" uid="uid://kx1fr4p8vy0f" path="res://scenes/player/states/run.gd" id="5_qek5x"]
 [ext_resource type="Script" uid="uid://dpcr7kcoh7xdh" path="res://scenes/player/states/jump.gd" id="6_5gtgg"]
 [ext_resource type="Script" uid="uid://cqn00yvsknulb" path="res://scenes/player/states/fall.gd" id="7_h17s1"]
+[ext_resource type="Script" uid="uid://dpd26kcua3hy5" path="res://scenes/player/states/wall_cling.gd" id="8_qek5x"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_fe31a"]
 
@@ -47,6 +48,5 @@ script = ExtResource("6_5gtgg")
 [node name="Fall" type="Node" parent="States" unique_id=887957041]
 script = ExtResource("7_h17s1")
 
-[node name="Camera3D" type="Camera3D" parent="." unique_id=1386102584]
-transform = Transform3D(1, 0, 0, 0, 0.7071067, 0.7071067, 0, -0.7071067, 0.7071067, 0, 30, 30)
-fov = 30.0
+[node name="WallCling" type="Node" parent="States" unique_id=1182081874]
+script = ExtResource("8_qek5x")
