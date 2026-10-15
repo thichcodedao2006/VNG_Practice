@@ -1,0 +1,11 @@
+[gd_scene format=3 uid="uid://dja7m3m3wvu13"]
+
+[ext_resource type="PackedScene" uid="uid://onc8rdia64pn" path="res://assets/models/objects/hammer_lv2.gltf" id="1_c15ai"]
+
+[node name="blockbench_export" unique_id=1058636277 instance=ExtResource("1_c15ai")]
+
+[node name="All" parent="." index="0" unique_id=1144578795]
+transform = Transform3D(0.96592575, 0.258819, 0, -0.258819, 0.96592575, 0, 0, 0, 1, 0, 0, 0)
+
+[node name="AnimationPlayer" parent="." index="1" unique_id=1579973588]
+autoplay = &"Slash"
