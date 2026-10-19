@@ -1,0 +1,196 @@
+[gd_scene format=3 uid="uid://d356gwifde3oj"]
+
+[ext_resource type="PackedScene" uid="uid://dngyqkgstbth3" path="res://scenes/base_character.tscn" id="1_a7lw7"]
+[ext_resource type="Script" uid="uid://j5d0re8kamxx" path="res://scenes/enemies/mushroom/mushroom.gd" id="2_0ra7h"]
+[ext_resource type="Texture2D" uid="uid://d1bmdoh4let33" path="res://assets/monsters/mushroom/mushroom_sprite_sheet.png" id="3_1lu8u"]
+[ext_resource type="Script" uid="uid://l2rypx8g2ktn" path="res://scripts/thrown_hit_area_3d.gd" id="4_pdypp"]
+[ext_resource type="Script" uid="uid://b3jkvkb1455e5" path="res://scenes/enemies/states/run.gd" id="5_0ra7h"]
+[ext_resource type="Script" uid="uid://dyy60s7y64nyn" path="res://scenes/enemies/states/carried.gd" id="5_1lu8u"]
+[ext_resource type="Script" uid="uid://bs8sd3lbfe6de" path="res://scenes/enemies/states/thrown.gd" id="6_1lu8u"]
+
+[sub_resource type="Animation" id="Animation_a7lw7"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite3D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [2]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Sprite3D:flip_h")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+
+[sub_resource type="Animation" id="Animation_0ra7h"]
+resource_name = "run_down"
+length = 0.8
+loop_mode = 1
+step = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite3D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2, 0.4, 0.6),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": [0, 3, 6, 3]
+}
+
+[sub_resource type="Animation" id="Animation_1lu8u"]
+resource_name = "run_left"
+length = 0.8
+loop_mode = 1
+step = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite3D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2, 0.4, 0.6),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": [1, 4, 7, 4]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Sprite3D:flip_h")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+
+[sub_resource type="Animation" id="Animation_pdypp"]
+resource_name = "run_right"
+length = 0.8
+loop_mode = 1
+step = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite3D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2, 0.4, 0.6),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": [1, 4, 7, 4]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Sprite3D:flip_h")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+
+[sub_resource type="Animation" id="Animation_ysheg"]
+resource_name = "run_up"
+length = 0.8
+loop_mode = 1
+step = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite3D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2, 0.4, 0.6),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": [2, 5, 8, 5]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_1lu8u"]
+_data = {
+&"RESET": SubResource("Animation_a7lw7"),
+&"run_down": SubResource("Animation_0ra7h"),
+&"run_left": SubResource("Animation_1lu8u"),
+&"run_right": SubResource("Animation_pdypp"),
+&"run_up": SubResource("Animation_ysheg")
+}
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_v0s4m"]
+radius = 0.6220703
+height = 1.7813721
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_ql73s"]
+height = 1.5976563
+
+[node name="Mushroom" unique_id=1332856003 instance=ExtResource("1_a7lw7")]
+collision_layer = 8
+script = ExtResource("2_0ra7h")
+carry_speed_multiplier = 0.7999999999999999
+carry_jump_multiplier = 0.7999999999999999
+
+[node name="Sprite3D" parent="." index="0" unique_id=262395879]
+offset = Vector2(0, 14)
+texture = ExtResource("3_1lu8u")
+hframes = 3
+vframes = 6
+frame = 2
+
+[node name="AnimationPlayer" parent="." index="1" unique_id=1108838924]
+libraries/ = SubResource("AnimationLibrary_1lu8u")
+
+[node name="FrontRayCast3D" type="RayCast3D" parent="Direction" parent_id_path=PackedInt32Array(726134717) index="0" unique_id=2030725224]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
+target_position = Vector3(0, 0, 1)
+
+[node name="DownRayCast3D" type="RayCast3D" parent="Direction" parent_id_path=PackedInt32Array(726134717) index="1" unique_id=2006881209]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0.9)
+target_position = Vector3(0, -1.5, 0)
+
+[node name="ThrownHitArea3D" type="Area3D" parent="Direction" parent_id_path=PackedInt32Array(726134717) index="2" unique_id=1608851408]
+collision_layer = 0
+collision_mask = 16
+script = ExtResource("4_pdypp")
+min_height = 0.05
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Direction/ThrownHitArea3D" index="0" unique_id=166701480]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.6222534, 0)
+shape = SubResource("CapsuleShape3D_v0s4m")
+disabled = true
+
+[node name="CollisionShape3D" parent="." index="3" unique_id=742771680]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.7035688, 0)
+shape = SubResource("CapsuleShape3D_ql73s")
+
+[node name="Run" type="Node" parent="States" parent_id_path=PackedInt32Array(494264847) index="0" unique_id=672632234]
+script = ExtResource("5_0ra7h")
+
+[node name="Carried" type="Node" parent="States" parent_id_path=PackedInt32Array(494264847) index="1" unique_id=1529138616]
+script = ExtResource("5_1lu8u")
+
+[node name="Thrown" type="Node" parent="States" parent_id_path=PackedInt32Array(494264847) index="2" unique_id=2129106755]
+script = ExtResource("6_1lu8u")

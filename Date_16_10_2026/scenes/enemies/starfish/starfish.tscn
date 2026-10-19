@@ -1,0 +1,91 @@
+[gd_scene format=3 uid="uid://cafv37vlga7nj"]
+
+[ext_resource type="PackedScene" uid="uid://dngyqkgstbth3" path="res://scenes/base_character.tscn" id="1_b7kvs"]
+[ext_resource type="Script" uid="uid://bg7qsxsutee84" path="res://scenes/enemies/starfish/starfish.gd" id="2_rtvff"]
+[ext_resource type="Texture2D" uid="uid://b35vlmttvdep3" path="res://assets/monsters/starfish/starfish_sprite_sheet.png" id="3_577k6"]
+[ext_resource type="AnimationLibrary" uid="uid://b6mdwitmfk172" path="res://scenes/enemies/starfish/starfish_anims.tres" id="4_ff3tu"]
+[ext_resource type="Script" uid="uid://bvv36o7f0oebf" path="res://scripts/hit_area_3d.gd" id="5_724vs"]
+[ext_resource type="Script" uid="uid://coy8holsj103m" path="res://scripts/hurt_area_3d.gd" id="6_ytcyy"]
+[ext_resource type="Script" uid="uid://lphcx45d4qnh" path="res://scenes/enemies/starfish/states/run.gd" id="7_724vs"]
+[ext_resource type="Script" uid="uid://pegrl3ognx86" path="res://scenes/enemies/starfish/states/attack.gd" id="8_ytcyy"]
+[ext_resource type="Script" uid="uid://bavto3h5kppwg" path="res://scenes/enemies/states/hurt.gd" id="9_hqqr5"]
+[ext_resource type="Script" uid="uid://c3iiqmcihwu37" path="res://scenes/enemies/states/dead.gd" id="10_6c7xv"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_ql73s"]
+size = Vector3(4, 2, 8)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_v0s4m"]
+size = Vector3(1.4, 1, 1.4)
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_oeq8l"]
+height = 1.0
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_x8evi"]
+radius = 0.55
+height = 1.1
+
+[node name="Starfish" unique_id=1247615292 instance=ExtResource("1_b7kvs")]
+collision_layer = 8
+script = ExtResource("2_rtvff")
+movement_speed = 2.0
+
+[node name="Sprite3D" parent="." index="0" unique_id=262395879]
+offset = Vector2(0, 14.5)
+texture = ExtResource("3_577k6")
+hframes = 3
+vframes = 12
+
+[node name="AnimationPlayer" parent="." index="1" unique_id=1108838924]
+libraries/ = ExtResource("4_ff3tu")
+
+[node name="FrontRayCast3D" type="RayCast3D" parent="Direction" parent_id_path=PackedInt32Array(726134717) index="0" unique_id=9545635]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
+target_position = Vector3(0, 0, 1)
+
+[node name="DownRayCast3D" type="RayCast3D" parent="Direction" parent_id_path=PackedInt32Array(726134717) index="1" unique_id=1855289549]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0.9)
+target_position = Vector3(0, -1.5, 0)
+
+[node name="DetectPlayerArea3D" type="Area3D" parent="Direction" parent_id_path=PackedInt32Array(726134717) index="2" unique_id=786045133]
+collision_layer = 0
+collision_mask = 2
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Direction/DetectPlayerArea3D" index="0" unique_id=383354221]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 4)
+shape = SubResource("BoxShape3D_ql73s")
+
+[node name="HitArea3D" type="Area3D" parent="Direction" parent_id_path=PackedInt32Array(726134717) index="3" unique_id=1851790198]
+collision_layer = 0
+collision_mask = 4
+script = ExtResource("5_724vs")
+metadata/_custom_type_script = "uid://bvv36o7f0oebf"
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Direction/HitArea3D" index="0" unique_id=134479357]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
+shape = SubResource("BoxShape3D_v0s4m")
+
+[node name="HurtArea3D" type="Area3D" parent="Direction" parent_id_path=PackedInt32Array(726134717) index="4" unique_id=444202366]
+collision_layer = 16
+collision_mask = 0
+script = ExtResource("6_ytcyy")
+metadata/_custom_type_script = "uid://coy8holsj103m"
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Direction/HurtArea3D" index="0" unique_id=293627202]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
+shape = SubResource("CapsuleShape3D_oeq8l")
+
+[node name="CollisionShape3D" parent="." index="3" unique_id=742771680]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.55, 0)
+shape = SubResource("CapsuleShape3D_x8evi")
+
+[node name="Run" type="Node" parent="States" parent_id_path=PackedInt32Array(494264847) index="0" unique_id=1481254788]
+script = ExtResource("7_724vs")
+
+[node name="Attack" type="Node" parent="States" parent_id_path=PackedInt32Array(494264847) index="1" unique_id=962544105]
+script = ExtResource("8_ytcyy")
+
+[node name="Hurt" type="Node" parent="States" parent_id_path=PackedInt32Array(494264847) index="2" unique_id=2007966542]
+script = ExtResource("9_hqqr5")
+
+[node name="Dead" type="Node" parent="States" parent_id_path=PackedInt32Array(494264847) index="3" unique_id=117620390]
+script = ExtResource("10_6c7xv")

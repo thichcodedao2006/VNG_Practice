@@ -1,0 +1,40 @@
+[gd_scene format=3 uid="uid://b48jm43fk06vm"]
+
+[ext_resource type="Texture2D" uid="uid://bapktb0nwx1ra" path="res://assets/foxy/fox_skill/img_bullet_pet_darkness_03.png" id="1_7f0yt"]
+[ext_resource type="Script" uid="uid://cepkqg40bokp0" path="res://scenes/enemies/barrel/barrel_bullet.gd" id="1_q800r"]
+[ext_resource type="Script" uid="uid://bvv36o7f0oebf" path="res://scripts/hit_area_3d.gd" id="2_q800r"]
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_ql73s"]
+radius = 0.43586603
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_v0s4m"]
+radius = 0.55871576
+
+[node name="Bullet" type="RigidBody3D" unique_id=2095796140]
+collision_layer = 0
+collision_mask = 0
+gravity_scale = 0.0
+script = ExtResource("1_q800r")
+
+[node name="Sprite3D" type="Sprite3D" parent="." unique_id=1943860413]
+pixel_size = 0.02
+billboard = 1
+alpha_cut = 1
+texture_filter = 1
+texture = ExtResource("1_7f0yt")
+hframes = 3
+vframes = 3
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=180252994]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.05973597, 0.07596864, 0)
+shape = SubResource("SphereShape3D_ql73s")
+
+[node name="HitArea3D" type="Area3D" parent="." unique_id=1448789224]
+collision_layer = 0
+collision_mask = 16
+script = ExtResource("2_q800r")
+metadata/_custom_type_script = "uid://bvv36o7f0oebf"
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="HitArea3D" unique_id=975351999]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.08161509, 0.025316909, 0)
+shape = SubResource("SphereShape3D_v0s4m")

@@ -1,0 +1,22 @@
+[gd_scene format=3 uid="uid://b3ydq6el35r7g"]
+
+[ext_resource type="ArrayMesh" uid="uid://uk4w3wy5xye0" path="res://assets/models/objects/trap.tres" id="1_0rev4"]
+[ext_resource type="Script" uid="uid://bvv36o7f0oebf" path="res://scripts/hit_area_3d.gd" id="2_aptff"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_ql73s"]
+size = Vector3(1.4, 0.5, 1.4)
+
+[node name="Trap" type="Node3D" unique_id=558245878]
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=1088017847]
+mesh = ExtResource("1_0rev4")
+
+[node name="HitArea3D" type="Area3D" parent="." unique_id=1717923732]
+collision_layer = 0
+collision_mask = 4
+script = ExtResource("2_aptff")
+metadata/_custom_type_script = "uid://bvv36o7f0oebf"
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="HitArea3D" unique_id=762025659]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.25, 0)
+shape = SubResource("BoxShape3D_ql73s")
